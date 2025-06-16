@@ -1,6 +1,6 @@
 # 📝 Fullstack Todo App (Node.js + MongoDB + Docker + CI/CD)
 
-A fullstack **Todo application** built with **Node.js**, **MongoDB**, and **Express**, styled with a clean HTML/CSS UI. Includes **Docker** support and a CI/CD pipeline using **GitHub Actions** to automate testing, Docker image building, and deployment.
+A fullstack **Todo application** built with **Node.js**, **MongoDB**, and **Express**. Includes **Docker** support and a CI/CD pipeline using **GitHub Actions** to automate testing, Docker image building, and deployment.
 
 ## 🚀 Features
 
