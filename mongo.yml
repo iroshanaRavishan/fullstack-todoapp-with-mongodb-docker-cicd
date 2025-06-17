@@ -21,6 +21,8 @@ services:
     environment:  # Set environment variables for mongo-express
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin  # MongoDB username to connect with
       ME_CONFIG_MONGODB_ADMINPASSWORD: password  # MongoDB password to connect with
+      ME_CONFIG_BASICAUTH_USERNAME: admin       # login for web UI
+      ME_CONFIG_BASICAUTH_PASSWORD: password    # login for web UI
       ME_CONFIG_MONGODB_SERVER: mongodb  # Hostname of the MongoDB container to connect to
     ports:
       - "8081:8081"  # Map port 8081 on host to port 8081 in the container
