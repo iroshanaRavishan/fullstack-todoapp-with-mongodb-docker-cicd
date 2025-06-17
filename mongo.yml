@@ -1,0 +1,31 @@
+version: '3'  # Use Docker Compose file format version 3
+
+services:
+  mongodb:  # Define a service named 'mongodb'
+    image: mongo:latest  # Use the latest official MongoDB image
+    container_name: mongo  # Name the container 'mongo'
+    restart: always  # Always restart the container if it stops
+    environment:  # Set environment variables for MongoDB
+      MONGO_INITDB_ROOT_USERNAME: admin  # Root username for MongoDB
+      MONGO_INITDB_ROOT_PASSWORD: password  # Root password for MongoDB
+      MONGO_INITDB_DATABASE: ToDoAppDB  # Default database to create at startup
+    ports:
+      - "27017:27017"  # Map port 27017 on host to port 27017 in the container
+    volumes:
+      - mongo_data:/data/db  # Persist database data using a named volume
+
+  mongo-express:  # Define a service named 'mongo-express'
+    image: mongo-express:latest  # Use the latest official mongo-express image
+    container_name: mongo-express  # Name the container 'mongo-express'
+    restart: always  # Always restart the container if it stops
+    environment:  # Set environment variables for mongo-express
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin  # MongoDB username to connect with
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password  # MongoDB password to connect with
+      ME_CONFIG_BASICAUTH_USERNAME: admin       # login for web UI
+      ME_CONFIG_BASICAUTH_PASSWORD: password    # login for web UI
+      ME_CONFIG_MONGODB_SERVER: mongodb  # Hostname of the MongoDB container to connect to
+    ports:
+      - "8081:8081"  # Map port 8081 on host to port 8081 in the container
+
+volumes:
+  mongo_data:  # Declare a named volume called 'mongo_data' to persist MongoDB data
