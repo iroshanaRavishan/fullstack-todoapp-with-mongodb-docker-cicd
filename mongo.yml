@@ -1,0 +1,15 @@
+version: '3'  # Use Docker Compose file format version 3
+
+services:
+  mongodb:  # Define a service named 'mongodb'
+    image: mongo:latest  # Use the latest official MongoDB image
+    container_name: mongo  # Name the container 'mongo'
+    restart: always  # Always restart the container if it stops
+    environment:  # Set environment variables for MongoDB
+      MONGO_INITDB_ROOT_USERNAME: admin  # Root username for MongoDB
+      MONGO_INITDB_ROOT_PASSWORD: password  # Root password for MongoDB
+      MONGO_INITDB_DATABASE: ToDoAppDB  # Default database to create at startup
+    ports:
+      - "27017:27017"  # Map port 27017 on host to port 27017 in the container
+    volumes:
+      - mongo_data:/data/db  # Persist database data using a named volume
