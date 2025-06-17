@@ -13,3 +13,17 @@ services:
       - "27017:27017"  # Map port 27017 on host to port 27017 in the container
     volumes:
       - mongo_data:/data/db  # Persist database data using a named volume
+
+  mongo-express:  # Define a service named 'mongo-express'
+    image: mongo-express:latest  # Use the latest official mongo-express image
+    container_name: mongo-express  # Name the container 'mongo-express'
+    restart: always  # Always restart the container if it stops
+    environment:  # Set environment variables for mongo-express
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin  # MongoDB username to connect with
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password  # MongoDB password to connect with
+      ME_CONFIG_MONGODB_SERVER: mongodb  # Hostname of the MongoDB container to connect to
+    ports:
+      - "8081:8081"  # Map port 8081 on host to port 8081 in the container
+
+volumes:
+  mongo_data:  # Declare a named volume called 'mongo_data' to persist MongoDB data
