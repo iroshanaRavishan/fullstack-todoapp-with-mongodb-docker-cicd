@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    #todo-form {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    input[type="text"], select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    select {
+      width: 150px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button.edit-btn {
+      background-color: #ffc107;
+      color: #000;
+      margin-left: 10px;
+    }
+    button.delete-btn {
+      background-color: #dc3545;
+      margin-left: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      padding: 10px;
+      background: #fff;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .task-buttons {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <form id="todo-form">
+    <input type="text" id="todo-input" placeholder="Enter a new task" required />
+    <select id="status-input">
+      <option value="todo">Todo</option>
+      <option value="inprogress">In Progress</option>
+      <option value="done">Done</option>
+    </select>
+    <button type="submit">Add Task</button>
+  </form>
+  <ul id="todo-list">
+    <li>
+      <span><strong>Sample Task</strong> - <em>todo</em></span>
+      <div class="task-buttons">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    </li>
+  </ul>
+</body>
+</html>
