@@ -36,7 +36,31 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
+    button.edit-btn {
+      background-color: #ffc107;
+      color: #000;
+      margin-left: 10px;
+    }
+    button.delete-btn {
+      background-color: #dc3545;
+      margin-left: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      padding: 10px;
+      background: #fff;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .task-buttons {
+      display: flex;
+    }
   </style>
 </head>
 <body>
@@ -50,5 +74,14 @@
     </select>
     <button type="submit">Add Task</button>
   </form>
+  <ul id="todo-list">
+    <li>
+      <span><strong>Sample Task</strong> - <em>todo</em></span>
+      <div class="task-buttons">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    </li>
+  </ul>
 </body>
 </html>
