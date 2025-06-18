@@ -18,7 +18,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/todos', require('./routes/todos'));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+const uri = process.env.NODE_ENV === 'production'
+  ? process.env.MONGO_URI_PROD
+  : process.env.MONGO_URI_LOCAL;
+
+// Log the URI and the environment (for debugging purposes)
+console.log(`Running in ${process.env.NODE_ENV} mode`);
+console.log(`Connecting to MongoDB at: ${uri}`);
+
+mongoose.connect(uri)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
