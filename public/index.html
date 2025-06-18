@@ -83,7 +83,7 @@
       </div>
     </li>
   </ul>
-
+  
   <script>
     const form = document.getElementById('todo-form');
     const todoInput = document.getElementById('todo-input');
@@ -146,6 +146,15 @@
             </div>
           `;
         todoList.appendChild(li);
+      });
+
+      // Attach delete event handlers
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.getAttribute('data-id');
+          await fetch(`/todos/${id}`, { method: 'DELETE' });
+          fetchTodos(); // Refresh list
+        });
       });
 
       document.querySelectorAll('.edit-btn').forEach(btn => {
