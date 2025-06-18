@@ -23,4 +23,10 @@ router.put('/:id', async (req, res) => {
   res.json(updated);
 });
 
+// DELETE a todo
+router.delete('/:id', async (req, res) => {
+  await Todo.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Todo deleted' });
+});
+
 module.exports = router;
