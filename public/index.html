@@ -93,6 +93,31 @@
     // Load todos on page load
     window.onload = fetchTodos;
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const task = todoInput.value;
+      const status = statusInput.value;
+
+      let res;
+
+      // CREATE
+      res = await fetch('/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task, status })
+      });
+    
+
+      if (res.ok) {
+        todoInput.value = '';
+        statusInput.value = 'todo';
+        fetchTodos();
+      } else {
+        alert('Failed to save todo');
+      }
+    });
+
     async function fetchTodos() {
       const res = await fetch('/todos');
       const todos = await res.json();
