@@ -147,6 +147,21 @@
           `;
         todoList.appendChild(li);
       });
+
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const li = btn.closest('li');
+          const currentText = li.querySelector('strong').innerText;
+          const currentStatus = li.querySelector('em').innerText;
+
+          // Prefill form with existing values
+          todoInput.value = currentText;
+          statusInput.value = currentStatus;
+          form.setAttribute('data-edit-id', id); // Mark form as "edit mode"
+          form.querySelector('button[type="submit"]').textContent = 'Update Task';
+        });
+      });
     }
   </script>
 
