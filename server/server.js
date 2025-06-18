@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 // built-in 'path' module to handle file paths
 const path = require('path');
 const cors = require('cors');
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // API routes
 app.use('/todos', require('./routes/todos'));
