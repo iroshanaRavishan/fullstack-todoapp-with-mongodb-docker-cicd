@@ -83,5 +83,35 @@
       </div>
     </li>
   </ul>
+
+  <script>
+    const form = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const statusInput = document.getElementById('status-input');
+    const todoList = document.getElementById('todo-list');
+
+    // Load todos on page load
+    window.onload = fetchTodos;
+
+    async function fetchTodos() {
+      const res = await fetch('/todos');
+      const todos = await res.json();
+
+      todoList.innerHTML = '';
+
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+          li.innerHTML = `
+            <span><strong>${todo.task}</strong> - <em>${todo.status}</em></span>
+            <div class="task-buttons">
+              <button class="edit-btn" data-id="${todo._id}">Edit</button>
+              <button class="delete-btn" data-id="${todo._id}">Delete</button>
+            </div>
+          `;
+        todoList.appendChild(li);
+      });
+    }
+  </script>
+
 </body>
 </html>
