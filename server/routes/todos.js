@@ -8,4 +8,12 @@ router.get('/', async (req, res) => {
   res.json(todos);
 });
 
+// POST new todo
+router.post('/', async (req, res) => {
+  const { task, status } = req.body;
+  const newTodo = new Todo({ task, status });
+  await newTodo.save();
+  res.status(201).json(newTodo);
+});
+
 module.exports = router;
