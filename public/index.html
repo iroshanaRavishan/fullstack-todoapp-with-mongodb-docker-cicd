@@ -130,6 +130,19 @@
       }
     });
 
+      function formatStatus(status) {
+        switch (status) {
+          case 'inprogress':
+            return 'In Progress';
+          case 'todo':
+            return 'Todo';
+          case 'done':
+            return 'Done';
+          default:
+            return status;
+        }
+      }
+
     async function fetchTodos() {
       const res = await fetch('/todos');
       const todos = await res.json();
@@ -139,7 +152,10 @@
       todos.forEach(todo => {
         const li = document.createElement('li');
           li.innerHTML = `
-            <span><strong>${todo.task}</strong> - <em>${todo.status}</em></span>
+            <span data-status="${todo.status}">
+              <strong>${todo.task}</strong> - 
+              <span>${formatStatus(todo.status)}</span>
+            </span>
             <div class="task-buttons">
               <button class="edit-btn" data-id="${todo._id}">Edit</button>
               <button class="delete-btn" data-id="${todo._id}">Delete</button>
@@ -162,7 +178,7 @@
           const id = btn.getAttribute('data-id');
           const li = btn.closest('li');
           const currentText = li.querySelector('strong').innerText;
-          const currentStatus = li.querySelector('em').innerText;
+          const currentStatus = li.querySelector('.status').classList[1].replace('status-', '');
 
           // Prefill form with existing values
           todoInput.value = currentText;
