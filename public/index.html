@@ -61,6 +61,28 @@
     .task-buttons {
       display: flex;
     }
+    .status {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      color: white;
+      text-transform: capitalize;
+    }
+    .status-todo {
+      background-color: #6c757d; /* gray */
+    }
+    .status-inprogress {
+      background-color: #fd7e14; /* orange */
+    }
+    .status-done {
+      background-color: #28a745; /* green */
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
@@ -72,7 +94,7 @@
       <option value="inprogress">In Progress</option>
       <option value="done">Done</option>
     </select>
-    <button type="submit">Add Task</button>
+    <button type="submit" id="submit-btn" disabled>Add Task</button>
   </form>
   <ul id="todo-list">
     <li>
@@ -89,6 +111,12 @@
     const todoInput = document.getElementById('todo-input');
     const statusInput = document.getElementById('status-input');
     const todoList = document.getElementById('todo-list');
+    const submitBtn = document.getElementById('submit-btn');
+
+    todoInput.addEventListener('input', () => {
+      const trimmed = todoInput.value.trim();
+      submitBtn.disabled = trimmed.length === 0;
+    });
 
     // Load todos on page load
     window.onload = fetchTodos;
@@ -130,6 +158,19 @@
       }
     });
 
+      function formatStatus(status) {
+        switch (status) {
+          case 'inprogress':
+            return 'In Progress';
+          case 'todo':
+            return 'Todo';
+          case 'done':
+            return 'Done';
+          default:
+            return status;
+        }
+      }
+
     async function fetchTodos() {
       const res = await fetch('/todos');
       const todos = await res.json();
@@ -139,7 +180,10 @@
       todos.forEach(todo => {
         const li = document.createElement('li');
           li.innerHTML = `
-            <span><strong>${todo.task}</strong> - <em>${todo.status}</em></span>
+            <span data-status="${todo.status}">
+              <strong>${todo.task}</strong> - 
+              <span class="status status-${todo.status}">${formatStatus(todo.status)}</span>
+            </span>
             <div class="task-buttons">
               <button class="edit-btn" data-id="${todo._id}">Edit</button>
               <button class="delete-btn" data-id="${todo._id}">Delete</button>
@@ -162,7 +206,7 @@
           const id = btn.getAttribute('data-id');
           const li = btn.closest('li');
           const currentText = li.querySelector('strong').innerText;
-          const currentStatus = li.querySelector('em').innerText;
+          const currentStatus = li.querySelector('.status').classList[1].replace('status-', '');
 
           // Prefill form with existing values
           todoInput.value = currentText;
