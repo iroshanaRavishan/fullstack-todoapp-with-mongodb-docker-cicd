@@ -61,6 +61,19 @@
     .task-buttons {
       display: flex;
     }
+    .status {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      color: white;
+      text-transform: capitalize;
+    }
+
+    .status-todo {
+      background-color: #6c757d; /* gray */
+    }
+
   </style>
 </head>
 <body>
@@ -154,7 +167,7 @@
           li.innerHTML = `
             <span data-status="${todo.status}">
               <strong>${todo.task}</strong> - 
-              <span>${formatStatus(todo.status)}</span>
+              <span class="status status-${todo.status}">${formatStatus(todo.status)}</span>
             </span>
             <div class="task-buttons">
               <button class="edit-btn" data-id="${todo._id}">Edit</button>
