@@ -89,7 +89,7 @@
       <option value="inprogress">In Progress</option>
       <option value="done">Done</option>
     </select>
-    <button type="submit">Add Task</button>
+    <button type="submit" id="submit-btn" disabled>Add Task</button>
   </form>
   <ul id="todo-list">
     <li>
@@ -106,6 +106,12 @@
     const todoInput = document.getElementById('todo-input');
     const statusInput = document.getElementById('status-input');
     const todoList = document.getElementById('todo-list');
+    const submitBtn = document.getElementById('submit-btn');
+
+    todoInput.addEventListener('input', () => {
+      const trimmed = todoInput.value.trim();
+      submitBtn.disabled = trimmed.length === 0;
+    });
 
     // Load todos on page load
     window.onload = fetchTodos;
