@@ -83,5 +83,96 @@
       </div>
     </li>
   </ul>
+  
+  <script>
+    const form = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const statusInput = document.getElementById('status-input');
+    const todoList = document.getElementById('todo-list');
+
+    // Load todos on page load
+    window.onload = fetchTodos;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const task = todoInput.value;
+      const status = statusInput.value;
+      const editId = form.getAttribute('data-edit-id');
+
+      let res;
+
+      if (editId) {
+        // UPDATE
+        res = await fetch(`/todos/${editId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task, status })
+        });
+
+        form.removeAttribute('data-edit-id');
+        form.querySelector('button[type="submit"]').textContent = 'Add Task';
+      } else {
+        // CREATE
+        res = await fetch('/todos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task, status })
+        });
+      }
+
+      if (res.ok) {
+        todoInput.value = '';
+        statusInput.value = 'todo';
+        fetchTodos();
+      } else {
+        alert('Failed to save todo');
+      }
+    });
+
+    async function fetchTodos() {
+      const res = await fetch('/todos');
+      const todos = await res.json();
+
+      todoList.innerHTML = '';
+
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+          li.innerHTML = `
+            <span><strong>${todo.task}</strong> - <em>${todo.status}</em></span>
+            <div class="task-buttons">
+              <button class="edit-btn" data-id="${todo._id}">Edit</button>
+              <button class="delete-btn" data-id="${todo._id}">Delete</button>
+            </div>
+          `;
+        todoList.appendChild(li);
+      });
+
+      // Attach delete event handlers
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.getAttribute('data-id');
+          await fetch(`/todos/${id}`, { method: 'DELETE' });
+          fetchTodos(); // Refresh list
+        });
+      });
+
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const li = btn.closest('li');
+          const currentText = li.querySelector('strong').innerText;
+          const currentStatus = li.querySelector('em').innerText;
+
+          // Prefill form with existing values
+          todoInput.value = currentText;
+          statusInput.value = currentStatus;
+          form.setAttribute('data-edit-id', id); // Mark form as "edit mode"
+          form.querySelector('button[type="submit"]').textContent = 'Update Task';
+        });
+      });
+    }
+  </script>
+
 </body>
 </html>
