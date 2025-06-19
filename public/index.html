@@ -177,7 +177,7 @@
 
       todoList.innerHTML = '';
 
-      todos.forEach(todo => {
+      todos.forEach((todo, index) => {
         const li = document.createElement('li');
           li.innerHTML = `
             <span data-status="${todo.status}">
