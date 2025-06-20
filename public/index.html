@@ -7,11 +7,22 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 40px;
-      background: linear-gradient(135deg, #e0bbff,  #d1a3ff,  #4387a7,  #7b28c9,  #9333ea,  #4a6fe7,  #ca41b8 );
-      background-size: 400% 400%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0bbff, #d1a3ff, #4387a7, #7b28c9, #9333ea, #4a6fe7, #ca41b8);
       animation: gradientBG 15s ease infinite;
-      margin: auto 250px
+      background-size: 400% 400%;
+    }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+      padding: 40px;
+      margin: auto 250px;
     }
     h1 {
       color: #ffffff;
@@ -113,26 +124,29 @@
   </style>
 </head>
 <body>
-  <h1>Todo List</h1>
-  <form id="todo-form">
-    <input type="text" id="todo-input" placeholder="Enter a new task" required />
-    <select id="status-input">
-      <option value="todo">Todo</option>
-      <option value="inprogress">In Progress</option>
-      <option value="done">Done</option>
-    </select>
-    <button type="submit" id="submit-btn" disabled>Add Task</button>
-  </form>
-  <ul id="todo-list">
-    <li>
-      <span><strong>Sample Task</strong> - <em>todo</em></span>
-      <div class="task-buttons">
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </div>
-    </li>
-  </ul>
-  
+  <div class="container">
+    <main>
+      <h1>Todo List</h1>
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Enter a new task" required />
+        <select id="status-input">
+          <option value="todo">Todo</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+        <button type="submit" id="submit-btn" disabled>Add Task</button>
+      </form>
+      <ul id="todo-list">
+        <li>
+          <span><strong>Sample Task</strong> - <em>todo</em></span>
+          <div class="task-buttons">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </div>
   <script>
     const form = document.getElementById('todo-form');
     const todoInput = document.getElementById('todo-input');
