@@ -50,13 +50,32 @@
       padding: 0;
     }
     li {
+      counter-increment: task-counter;
+      position: relative;
       margin: 10px 0;
-      padding: 10px;
+      padding: 10px 10px 10px 60px; /* add left padding for the number */
       background: #fff;
       border-radius: 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    /* Number circle before each task */
+    li::before {
+      content: counter(task-counter);
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgb(190, 190, 190);
+      width: 26px;
+      height: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 26px;
     }
     .task-buttons {
       display: flex;
@@ -177,7 +196,7 @@
 
       todoList.innerHTML = '';
 
-      todos.forEach(todo => {
+      todos.forEach((todo, index) => {
         const li = document.createElement('li');
           li.innerHTML = `
             <span data-status="${todo.status}">
